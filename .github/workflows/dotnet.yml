@@ -1,0 +1,32 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory : ./src/AspNetCoreCurlMiddleware
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory : ./src/AspNetCoreCurlMiddleware
+    - name: Publish Nuget
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with: 
+        PROJECT_FILE_PATH: ./src/AspNetCoreCurlMiddleware/AspNetCoreCurlMiddleware.csproj
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
