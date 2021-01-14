@@ -1,6 +1,8 @@
 # AspNetCore Curl Middleware Package
 Captures the ASP.NETCore HTTP Request and converts it as CURL file.
 
+![.NET](https://github.com/hakuna-matata-in/AspNetCoreCurlMiddlewarePackage/workflows/.NET/badge.svg?branch=main)
+
 # Use Case 
 As a back-end developer we would come across with different errors during runtime across multiple environments like QA, Staging, Production etc...In the modern era of micro-services the effort that we put to reproduce the same request and test in our local system has become a tedious process. In order to reduce the effort spent in reproducing a issue we could log the HTTP Request object as a curl request and save the request as files. These files can be pulled back into Postman or any other API testing tools and can be used to reproduce the issue a lot quicker than manually framing it.
 
