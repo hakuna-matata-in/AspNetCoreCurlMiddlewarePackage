@@ -45,6 +45,7 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+        working-directory : ./src/AspNetCoreCurlMiddleware
       - name: Build and analyze
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
@@ -55,6 +56,7 @@ jobs:
           dotnet restore
           dotnet build --configuration Release --no-restore
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        working-directory : ./src/AspNetCoreCurlMiddleware
       - name: Publish Nuget
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
